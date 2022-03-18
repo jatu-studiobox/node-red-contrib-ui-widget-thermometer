@@ -1,0 +1,20 @@
+<script type="text/html" data-help-name="ui_widget_thermometer">
+    <p>A Node Red dashboard ui node to display a linear gauge with high & low limit areas.</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload<span class="property-type">number</span></dt>
+        <dd>The value to display.</dd>
+        <dt>highlimit<span class="property-type">number</span></dt>
+        <dd>The high limit - default 80.</dd>
+        <dt>lowlimit<span class="property-type">number</span></dt>
+        <dd>The low limit - default 20</dd>
+        <dt>setpoint<span class="property-type">number</span></dt>
+        <dd>A setpoint value - default 50. Only visible in hover tooltip.</dd>
+    </dl>
+    <h3>Details</h3>
+    <p>Takes the <code>msg.payload</code> and displays the value at the top of the gauge and slides the pointer up/down the gauge.</p>
+    <p>The node's <code>Name</code> is displayed at the bottom of the gauge for indication of what the gauge is for. I.E., "Tank #1 Temperature"</p>
+    <p>The node's <code>Unit</code> will be displayed at the trailing end of the current value. A unit can be anything, for example: <code>lbs psi F°</code></p>
+    <p>The area's color is also customizable within the configuration but cannot be set with a msg.</p>
+    <p>There is also a tooltip provided that will display the High Limit, Low Limit, and Setpoint value.</p>
+</script>

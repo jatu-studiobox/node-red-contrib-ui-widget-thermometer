@@ -1,0 +1,19 @@
+{
+    "ui_widget_thermometer": {
+        "label": {
+            "name": "Name",
+            "widgetConfig": "กำหนดข้อมูลสำหรับ Widget",
+            "topAreaColor": "สีพื้นที่ด้านบน",
+            "middleAreaColor": "สีพื้นที่ตรงกลาง",
+            "bottomAreaColor": "สีพื้นที่ด้านล่าง",
+            "unit": "หน่วย",
+            "scale": "ขนาดแสดงผล",
+            "minTemp": "ค่าอุณหภูมิต่ำสุด",
+            "maxTemp": "ค่าอุณหภูมิสูงสุด",
+            "title": "ชื่อเรื่อง"
+        },
+        "error": {
+            "no-group": "โปรดใส่ group สำหรับ widget"
+        }
+    }
+}

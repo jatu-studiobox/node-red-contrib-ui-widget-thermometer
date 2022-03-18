@@ -1,0 +1,188 @@
+<style>
+    .containerBox {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #bbb;
+        border-radius: 5px;
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+    }
+</style>
+<script type="text/html" data-template-name="ui_widget_thermometer">
+    <div class="form-row" id="template-row-group">
+        <label for="node-input-group"><i class="fa fa-table"></i> Group</span></label>
+        <input type="text" id="node-input-group">
+    </div>
+    <div class="form-row" id="template-row-size">
+        <label><i class="fa fa-object-group"></i> Size</span></label>
+        <input type="hidden" id="node-input-width">
+        <input type="hidden" id="node-input-height">
+        <button class="editor-button" id="node-input-size"></button>
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="ui_widget_thermometer.label.name"></span></label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="containerBox" style="color: #555;">
+        <div style="margin-bottom: 5px;">
+            <i class="fa fa-cogs"></i> <span data-i18n="ui_widget_thermometer.label.widgetConfig"></span>
+        </div>
+        <div class="form-row" id="template-row-group">
+            <label style="width: 140px;" for="node-input-title"><i class="fa fa-tag"></i> <span data-i18n="ui_widget_thermometer.label.title"></span></label>
+            <input style="width: 200px;" type="text" id="node-input-title" />
+        </div>
+        <div class="form-row" id="template-row-group">
+            <label style="width: 140px;" for="node-input-colorTop"><i class="fa fa-paint-brush"></i> <span data-i18n="ui_widget_thermometer.label.topAreaColor"></span></label>
+            <input style="width: 150px;" type="color" id="node-input-colorTop" />
+        </div>
+        <div class="form-row" id="template-row-group">
+            <label style="width: 140px;" for="node-input-colorMiddle"><i class="fa fa-paint-brush"></i> <span data-i18n="ui_widget_thermometer.label.middleAreaColor"></span></label>
+            <input style="width: 150px;" type="color" id="node-input-colorMiddle"/>
+        </div>
+        <div class="form-row" id="template-row-group">
+            <label style="width: 140px;" for="node-input-colorBottom"><i class="fa fa-paint-brush"></i> <span data-i18n="ui_widget_thermometer.label.bottomAreaColor"></span></label>
+            <input style="width: 150px;" type="color" id="node-input-colorBottom"/>
+        </div>
+        <div class="form-row" id="template-row-group">
+            <label style="width: 140px;" for="node-input-minTemp"><i class="fa fa-thermometer-empty"></i> <span data-i18n="ui_widget_thermometer.label.minTemp"></span></label>
+            <input style="width: 100px;" type="text" id="node-input-minTemp"/>
+        </div>
+        <div class="form-row" id="template-row-group">
+            <label style="width: 140px;" for="node-input-maxTemp"><i class="fa fa-thermometer-full"></i> <span data-i18n="ui_widget_thermometer.label.maxTemp"></span></label>
+            <input style="width: 100px;" type="text" id="node-input-maxTemp"/>
+        </div>
+        <div class="form-row" id="template-row-group">
+            <label style="width: 140px;" for="node-input-unit"><i class="fa fa-asterisk"></i> <span data-i18n="ui_widget_thermometer.label.unit"></span></label>
+            <input style="width: 60px;" type="text" id="node-input-unit"/>
+        </div>
+        <div class="form-row" id="template-row-group">
+            <label style="width: 140px;" for="node-input-scale"><i class="fa fa-expand"></i> <span data-i18n="ui_widget_thermometer.label.scale"></span></label>
+            <input style="width: 200px;" type="text" id="node-input-scale"/>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('ui_widget_thermometer', {    // type MUST start with ui_
+        category: 'dashboard',
+        color: '#f0575e',
+        defaults: {
+            group: {
+                type: 'ui_group',
+                required: true
+            },
+            order: { value: 0 },
+            width: {
+                value: 0,
+                validate: function (v) {
+                    let valid = true;
+                    let width = v || 0;
+                    let currentGroup = $('#node-input-group').val() || this.group;
+                    let groupNode = RED.nodes.node(currentGroup);
+                    valid = !groupNode || +width <= +groupNode.width;
+                    $("#node-input-size").toggleClass("input-error", !valid);
+                    return valid;
+                }
+            },
+            height: {
+                value: 0
+            },
+            name: {
+                value: ''
+            },
+            title: {
+                value: '',
+                required: true
+            },
+            colorTop: {
+                value: '#2196f3'
+            },
+            colorMiddle: {
+                value: '#8Bc34a'
+            },
+            colorBottom: {
+                value: '#f44336'
+            },
+            unit: {
+                value: '°C'
+            },
+            scale: {
+                value: "normal"
+            },
+            minTemp: {
+                value: 0,
+                required: true,
+                validate: function (v) {
+                    let max = parseInt($("#node-input-maxTemp").val());
+                    return max > v;
+                }
+            },
+            maxTemp: {
+                value: 100,
+                required: true,
+                validate: function (v) {
+                    let min = parseInt($("#node-input-minTemp").val());
+                    return v > min;
+                }
+            }
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "font-awesome/fa-thermometer-three-quarters",
+        paletteLabel: "thermometer",
+        label: function () {
+            return this.name || "thermometer";
+        },
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        },
+        oneditprepare: function () {
+            $("#node-input-size").elementSizer({
+                width: "#node-input-width",
+                height: "#node-input-height",
+                group: "#node-input-group"
+            });
+            $("#node-input-minTemp").typedInput({
+                type: "num",
+                types: ["num"]
+            });
+            $("#node-input-maxTemp").typedInput({
+                type: "num",
+                types: ["num"]
+            });
+            $("#node-input-unit").typedInput({
+                types: [
+                    {
+                        value: "unit",
+                        options: [
+                            { value: "°C", label: "°C" },
+                            { value: "°F", label: "°F" }
+                        ]
+                    }
+                ]
+            });
+            $("#node-input-unit").typedInput({
+                types: [
+                    {
+                        value: "unit",
+                        options: [
+                            { value: "°C", label: "°C" },
+                            { value: "°F", label: "°F" }
+                        ]
+                    }
+                ]
+            });
+            $("#node-input-scale").typedInput({
+                types: [
+                    {
+                        value: "scale",
+                        options: [
+                            { value: "normal", label: "Normal" },
+                            { value: "small", label: "Small" }
+                        ]
+                    }
+                ]
+            });
+        }
+    });
+</script>
