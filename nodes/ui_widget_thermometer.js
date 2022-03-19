@@ -287,6 +287,7 @@ module.exports = function (RED) {
 
     let ui = undefined; // instantiate a ui variable to link to the dashboard
 
+    // Function validate payload value
     function validatePayload(msg) {
         let result = {
             isError: false,
@@ -306,6 +307,18 @@ module.exports = function (RED) {
             result.message = RED._("ui_widget_thermometer.errors.payloadRequired");
         }
         return result;
+    }
+    // Function calculate mercury height percent
+    function calculatePercentDisplay(msg, config) {
+        const current = msg.payload;
+        if (current >= config.minTemp && current <= config.maxTemp) {
+            const percent = ((current - config.minTemp)/(config.maxTemp - config.minTemp)) * 100;
+            return percent;
+        } else if (current < config.minTemp) {
+            return 0;
+        } else if (current > config.maxTemp) {
+            return 100;
+        }
     }
 
     /**
@@ -351,7 +364,9 @@ module.exports = function (RED) {
                         if (result.isError) {
                             msg.isErr = true;
                             msg.errMessage = result.message;
+                            msg.percent = 0;
                         } else {
+                            msg.percent = calculatePercentDisplay(msg, config);
                             msg.isErr = false;
                         }
                         // Bind 'unit' to msg
@@ -383,7 +398,7 @@ module.exports = function (RED) {
                                 $(error).text("Error: " + msg.errMessage);
                             } else {
                                 const mercury = $(thermoWidget).find(".mercury");
-                                $(mercury).css("height", payload.toString() + "%");
+                                $(mercury).css("height", msg.percent.toString() + "%");
                                 $(mercury).children(".percent-current").text(payload.toString() + msg.unit);
                             }
                         });
