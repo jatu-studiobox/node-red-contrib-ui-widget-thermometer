@@ -12,8 +12,10 @@
             "maxTemp": "ค่าอุณหภูมิสูงสุด",
             "title": "ชื่อเรื่อง"
         },
-        "error": {
-            "no-group": "โปรดใส่ group สำหรับ widget"
+        "errors": {
+            "no-group": "โปรดใส่ group สำหรับ widget",
+            "payloadRequired": "ต้องการค่า payload",
+            "payloadInvalid": "payload ไม่ถูกต้อง"
         }
     }
 }

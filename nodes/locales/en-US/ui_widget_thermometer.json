@@ -12,8 +12,10 @@
             "maxTemp": "Max. Temperature",
             "title": "Title"
         },
-        "error": {
-            "no-group": "Please enter group for widget"
+        "errors": {
+            "no-group": "Please enter group for widget",
+            "payloadRequired": "payload is required",
+            "payloadInvalid": "payload is invalid"
         }
     }
 }

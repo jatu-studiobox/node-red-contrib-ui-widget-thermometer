@@ -238,28 +238,35 @@ module.exports = function (RED) {
     justify-content: space-between;
     align-items: center
 }
+.error {
+    color: red;
+    width: 100%;
+    text-align: center;
+}
 </style>
-<div>
-    <div style="height: ` + heightValue + `px;" class="tg-thermometer ` + clsSmall + `">
-        <div class="draw-a"></div>
-        <div class="draw-b"></div>
-        <div class="meter">
-            <div class="statistics">
-                <div class="percent percent-a">` + config.maxTemp + config.unit + `</div>
-                <div class="percent percent-b">75%</div>
-                <div class="percent percent-d">25%</div>
-                <div class="percent percent-c">50%</div>
-                <div class="percent percent-e">` + config.minTemp + config.unit + `</div>
-            </div>
-            <div style="height: 20%" class="mercury" id="item_{{$id}}">
-                <div class="percent-current">20%</div>
-                <div class="mask">
-                    <div class="bg-color" style="height: calc(` + heightValue + `px - 57px);"></div>
+<div id="item_{{$id}}">
+    <div>
+        <div style="height: ` + heightValue + `px;" class="tg-thermometer ` + clsSmall + `">
+            <div class="draw-a"></div>
+            <div class="draw-b"></div>
+            <div class="meter">
+                <div class="statistics">
+                    <div class="percent percent-a">` + config.maxTemp + config.unit + `</div>
+                    <div class="percent percent-b">75%</div>
+                    <div class="percent percent-d">25%</div>
+                    <div class="percent percent-c">50%</div>
+                    <div class="percent percent-e">` + config.minTemp + config.unit + `</div>
+                </div>
+                <div style="height: 0%" class="mercury">
+                    <div class="percent-current">0%</div>
+                    <div class="mask">
+                        <div class="bg-color" style="height: calc(` + heightValue + `px - 57px);"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>` + displayName;
+    </div>` + displayName + `<div class="error">error</div>
+</div>`;
         return html;
     }
     /**
@@ -272,13 +279,34 @@ module.exports = function (RED) {
      */
     function checkConfig(node, conf) {
         if (!conf || !conf.hasOwnProperty("group")) {
-            node.error(RED._("ui_widget_thermometer.error.no-group"));
+            node.error(RED._("ui_widget_thermometer.errors.no-group"));
             return false;
         }
         return true;
     }
 
     let ui = undefined; // instantiate a ui variable to link to the dashboard
+
+    function validatePayload(msg) {
+        let result = {
+            isError: false,
+            message: ""
+        };
+        // validate payload section
+        if (typeof msg.payload !== 'undefined') {
+            if (typeof msg.payload !== 'number') {
+                result.isError = true;
+                result.message = RED._("ui_widget_thermometer.errors.payloadInvalid");
+            } else if (!Number.isInteger(msg.payload)) {
+                result.isError = true;
+                result.message = RED._("ui_widget_thermometer.errors.payloadInvalid");
+            }
+        } else {
+            result.isError = true;
+            result.message = RED._("ui_widget_thermometer.errors.payloadRequired");
+        }
+        return result;
+    }
 
     /**
      * REQUIRED
@@ -318,6 +346,15 @@ module.exports = function (RED) {
                         return value;
                     },
                     beforeEmit: function (msg) {
+                        // Validate payload
+                        const result = validatePayload(msg);
+                        if (result.isError) {
+                            msg.isErr = true;
+                            msg.errMessage = result.message;
+                        } else {
+                            msg.isErr = false;
+                        }
+                        // Bind 'unit' to msg
                         msg.unit = config.unit;
                         return {
                             msg: msg
@@ -335,10 +372,20 @@ module.exports = function (RED) {
                                 // Ignore undefined msg
                                 return;
                             }
+                            // Gathering payload
                             const payload = msg.payload;
-                            const mercury = document.getElementById("item_" + $scope.$eval('$id'));
-                            $(mercury).css("height", payload + "%");
-                            $(mercury).children(".percent-current").text(payload + msg.unit);
+                            const thermoWidget = document.getElementById("item_" + $scope.$eval('$id'));
+                            const error = $(thermoWidget).find(".error");
+                            $(error).hide();
+                            // Validate payload
+                            if (msg.isErr) {
+                                $(error).show();
+                                $(error).text("Error: " + msg.errMessage);
+                            } else {
+                                const mercury = $(thermoWidget).find(".mercury");
+                                $(mercury).css("height", payload.toString() + "%");
+                                $(mercury).children(".percent-current").text(payload.toString() + msg.unit);
+                            }
                         });
                     }
                 });
