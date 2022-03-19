@@ -1,6 +1,6 @@
 {
   "name": "@studiobox/node-red-contrib-ui-widget-thermometer",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "description": "Easy to use Node-RED UI Widget on Node-RED Dashboard for display termperature data",
   "author": "jatu-studiobox",
   "license": "Apache-2.0",
@@ -15,7 +15,7 @@
     "node-red-dashboard",
     "ui-widget",
     "dashboard-ui",
-    "widget-thermometers",
+    "widget-thermometer",
     "ui-widget-thermometer"
   ],
   "node-red": {
@@ -28,12 +28,7 @@
   "repository": {
     "type": "git"
   },
-  "devDependencies": {
-    "mocha": "^9.2.0",
-    "node-red": "^2.2.0",
-    "node-red-node-test-helper": "^0.2.7"
-  },
   "scripts": {
-    "test": "mocha \"test/**/*_spec.js\""
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

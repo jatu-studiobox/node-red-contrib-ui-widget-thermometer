@@ -24,7 +24,7 @@ npm install @studiobox/node-red-contrib-ui-widget-thermometer
 4. Bottom Area Color - Thermometer's mercury color at bottom area
 5. Min. Temperature - Mininum temperature of thermometer for display
 6. Max. Temperature - Maxinum temperature of thermometer for display
-7. Unit - Unit for display
+7. Unit - Unit for display, includes °C and °F
 8. Scale - Thermometer size for display, includes 'normal' and 'small'
 
 ### Input API
@@ -36,7 +36,7 @@ Using *msg* object.
 
 *Remark*
 
-*If payload has value more than Max. Temperature settings, result thermometer mercury height at 100%. And if payload has value less than Mix. Temperature settings, result thermometer mercury height at 0%.*
+*If payload has value more than Max. Temperature settings, result thermometer mercury height at 100%.And if payload has value less than Mix. Temperature settings, result thermometer mercury height at 0%.*
 
 ## Examples
 After install, see usage examples at Node-RED Import menu. Examples at '@studiobox/node-red-contrib-ui-widget-thermometer'.

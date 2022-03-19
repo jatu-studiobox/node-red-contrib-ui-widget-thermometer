@@ -1,20 +1,30 @@
 <script type="text/html" data-help-name="ui_widget_thermometer">
-    <p>A Node Red dashboard ui node to display a linear gauge with high & low limit areas.</p>
+    <p>A Node-RED Dashboard UI Widget node to display a thermometer with temperature data.</p>
+    <h3>Node Settings</h3>
+    <dl class="message-properties">
+        <dt>Title<span class="property-type">string</span></dt>
+        <dd>Thermometer's title</dd>
+        <dt>Top Area Color<span class="property-type">rgb color</span></dt>
+        <dd>Thermometer's mercury color at top area</dd>
+        <dt>Middle Area Color<span class="property-type">rgb color</span></dt>
+        <dd>Thermometer's mercury color at middle area</dd>
+        <dt>Bottom Area Color<span class="property-type">rgb color</span></dt>
+        <dd>Thermometer's mercury color at bottom area</dd>
+        <dt>Min. Temperature<span class="property-type">integer</span></dt>
+        <dd>Mininum temperature of thermometer for display - default 0</dd>
+        <dt>Max. Temperature<span class="property-type">integer</span></dt>
+        <dd>Maxinum temperature of thermometer for display - default 100</dd>
+        <dt>Unit<span class="property-type">°C|°F</span></dt>
+        <dd>Unit for display</dd>
+        <dt>Scale<span class="property-type">normal|small</span></dt>
+        <dd>Thermometer size for display, includes 'normal' and 'small'</dd>
+    </dl>
     <h3>Inputs</h3>
     <dl class="message-properties">
-        <dt>payload<span class="property-type">number</span></dt>
-        <dd>The value to display.</dd>
-        <dt>highlimit<span class="property-type">number</span></dt>
-        <dd>The high limit - default 80.</dd>
-        <dt>lowlimit<span class="property-type">number</span></dt>
-        <dd>The low limit - default 20</dd>
-        <dt>setpoint<span class="property-type">number</span></dt>
-        <dd>A setpoint value - default 50. Only visible in hover tooltip.</dd>
+        <dt>payload<span class="property-type">integer</span></dt>
+        <dd>The temperature value to display</dd>
     </dl>
-    <h3>Details</h3>
-    <p>Takes the <code>msg.payload</code> and displays the value at the top of the gauge and slides the pointer up/down the gauge.</p>
-    <p>The node's <code>Name</code> is displayed at the bottom of the gauge for indication of what the gauge is for. I.E., "Tank #1 Temperature"</p>
-    <p>The node's <code>Unit</code> will be displayed at the trailing end of the current value. A unit can be anything, for example: <code>lbs psi F°</code></p>
-    <p>The area's color is also customizable within the configuration but cannot be set with a msg.</p>
-    <p>There is also a tooltip provided that will display the High Limit, Low Limit, and Setpoint value.</p>
+    <h3>More details</h3>
+    <p>See usage examples at Node-RED Import menu. Examples at '@studiobox/node-red-contrib-ui-widget-thermometer'.</p>
+    <p>See more help document on <a href="https://github.com/jatu-studiobox/node-red-contrib-ui-widget-thermometer" target="_blank">GitHub</a></p>
 </script>
