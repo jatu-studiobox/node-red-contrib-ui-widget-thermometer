@@ -36,7 +36,7 @@ Using *msg* object.
 
 *Remark*
 
-*If payload has value more than Max. Temperature settings, result thermometer mercury height at 100%.And if payload has value less than Mix. Temperature settings, result thermometer mercury height at 0%.*
+*If payload has value more than Max. Temperature settings, result thermometer mercury height at 100%. And if payload has value less than Mix. Temperature settings, result thermometer mercury height at 0%.*
 
 ## Examples
 After install, see usage examples at Node-RED Import menu. Examples at '@studiobox/node-red-contrib-ui-widget-thermometer'.
