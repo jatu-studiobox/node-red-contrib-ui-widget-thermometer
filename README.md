@@ -10,11 +10,11 @@ npm install @studiobox/node-red-contrib-ui-widget-thermometer
 
 ### Node Settings
 
-![Node Settings](https://github.com/jatu-studiobox/node-red-contrib-ui-widget-thermometer/resources/widget-settings.png?raw=true "Node Settings")
+![widget-settings](https://user-images.githubusercontent.com/43282496/159112367-83c602d5-632b-47f0-a1ab-3ce5591e8b89.png)
 
 ### Widget Display
 
-![Widget display](https://github.com/jatu-studiobox/node-red-contrib-ui-widget-thermometer/resources/widget-display.png?raw=true "Widget display")
+![widget-display](https://user-images.githubusercontent.com/43282496/159112338-5bddcab9-baf8-430f-90e5-9b3fe030bb83.png)
 
 #### Description
 
