@@ -1,6 +1,6 @@
 {
   "name": "@studiobox/node-red-contrib-ui-widget-thermometer",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Easy to use Node-RED UI Widget on Node-RED Dashboard for display termperature data",
   "author": "jatu-studiobox",
   "license": "Apache-2.0",
@@ -16,7 +16,10 @@
     "ui-widget",
     "dashboard-ui",
     "widget-thermometer",
-    "ui-widget-thermometer"
+    "ui-widget-thermometer",
+    "thermometer",
+    "widget",
+    "temperature"
   ],
   "node-red": {
     "version": ">=2.0.0",
