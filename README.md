@@ -9,7 +9,7 @@
 ## Getting Started
 1. First, install <a href="https://nodered.org/docs/getting-started/local" target="_blank">Node-RED</a> by follow Node-RED installation guideline.
 
-2. Install <a href="https://flows.nodered.org/node/node-red-dashboard" target="_blank">Node-RED Dashboard by follow Node-RED Dashboard installation guideline.</a>
+2. Install <a href="https://flows.nodered.org/node/node-red-dashboard" target="_blank">Node-RED Dashboard</a> by follow Node-RED Dashboard installation guideline.
 
 3. Install this package at user data directory `~/.node-red`
 
