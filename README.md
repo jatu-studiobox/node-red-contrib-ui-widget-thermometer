@@ -23,7 +23,7 @@ npm install @studiobox/node-red-contrib-ui-widget-thermometer
 node-red
 ```
 
-### Dashboard Example
+## Dashboard Example
 
 ![example-thermometer](https://user-images.githubusercontent.com/43282496/161102321-09b2e6f7-9550-4e2e-b0ed-f0b92f146525.png)
 
