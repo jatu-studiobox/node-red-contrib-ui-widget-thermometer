@@ -1,42 +1,35 @@
 # node-red-contrib-ui-widget-thermometer
-Node-RED UI Widget Thermometer node for Node-RED Dashboard
 
-## Installation
+![thermo-title](https://user-images.githubusercontent.com/43282496/161096690-83c352e5-8533-4431-8001-574507b07661.png)
+
+<a href="https://nodered.org/" target="_blank">Node-RED</a> UI Widget Thermometer node for <a href="https://flows.nodered.org/node/node-red-dashboard" target="_blank">Node-RED Dashboard</a>. Easy to use for display temperature on Node-RED Dashboard.
+
+![palette-node](https://user-images.githubusercontent.com/43282496/161101718-45647537-3276-478a-a76f-dc51c96eb113.png)
+
+## Getting Started
+1. First, install <a href="https://nodered.org/docs/getting-started/local" target="_blank">Node-RED</a> by follow Node-RED installation guideline.
+
+2. Install <a href="https://flows.nodered.org/node/node-red-dashboard" target="_blank">Node-RED Dashboard by follow Node-RED Dashboard installation guideline.</a>
+
+3. Install this package at user data directory `~/.node-red`
+
 ```
 npm install @studiobox/node-red-contrib-ui-widget-thermometer
 ```
 
-## Help
+4. Start Node-RED 
 
-### Node Settings
+```
+node-red
+```
 
-![widget-settings](https://user-images.githubusercontent.com/43282496/159112367-83c602d5-632b-47f0-a1ab-3ce5591e8b89.png)
+### Dashboard Example
 
-### Widget Display
+![example-thermometer](https://user-images.githubusercontent.com/43282496/161102321-09b2e6f7-9550-4e2e-b0ed-f0b92f146525.png)
 
-![widget-display](https://user-images.githubusercontent.com/43282496/159112338-5bddcab9-baf8-430f-90e5-9b3fe030bb83.png)
+## Documents
 
-#### Description
+[UI Widget Thermometer node for Node-RED Dashboard](https://github.com/jatu-studiobox/node-red-contrib-ui-widget-thermometer/wiki)
 
-1. Title - Thermometer's title
-2. Top Area Color - Thermometer's mercury color at top area
-3. Middle Area Color - Thermometer's mercury color at middle area
-4. Bottom Area Color - Thermometer's mercury color at bottom area
-5. Min. Temperature - Mininum temperature of thermometer for display
-6. Max. Temperature - Maxinum temperature of thermometer for display
-7. Unit - Unit for display, includes °C and °F
-8. Scale - Thermometer size for display, includes 'normal' and 'small'
-
-### Input API
-Using *msg* object.
-
-| Property     | Mandatory   | Type    | Description |
-| ------------ |:-----------:|:-------:| ----------- |
-| payload      | Yes         | Integer | Value for display on thermometer |
-
-*Remark*
-
-*If payload has value more than Max. Temperature settings, result thermometer mercury height at 100%.And if payload has value less than Mix. Temperature settings, result thermometer mercury height at 0%.*
-
-## Examples
-After install, see usage examples at Node-RED Import menu. Examples at '@studiobox/node-red-contrib-ui-widget-thermometer'.
+## Change Logs
+[See change logs detail](https://github.com/jatu-studiobox/node-red-contrib-ui-widget-thermometer/wiki/Change-Logs)
