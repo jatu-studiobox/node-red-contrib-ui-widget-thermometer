@@ -6,6 +6,8 @@
             "topAreaColor": "สีพื้นที่ด้านบน",
             "middleAreaColor": "สีพื้นที่ตรงกลาง",
             "bottomAreaColor": "สีพื้นที่ด้านล่าง",
+            "singleColor": "สี",
+            "numColor": "จำนวนสี",
             "unit": "หน่วย",
             "scale": "ขนาดแสดงผล",
             "minTemp": "ค่าอุณหภูมิต่ำสุด",

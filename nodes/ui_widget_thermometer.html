@@ -9,11 +9,11 @@
     }
 </style>
 <script type="text/html" data-template-name="ui_widget_thermometer">
-    <div class="form-row" id="template-row-group">
+    <div class="form-row">
         <label for="node-input-group"><i class="fa fa-table"></i> Group</span></label>
         <input type="text" id="node-input-group">
     </div>
-    <div class="form-row" id="template-row-size">
+    <div class="form-row">
         <label><i class="fa fa-object-group"></i> Size</span></label>
         <input type="hidden" id="node-input-width">
         <input type="hidden" id="node-input-height">
@@ -27,35 +27,42 @@
         <div style="margin-bottom: 5px;">
             <i class="fa fa-cogs"></i> <span data-i18n="ui_widget_thermometer.label.widgetConfig"></span>
         </div>
-        <div class="form-row" id="template-row-group">
+        <div class="form-row">
             <label style="width: 140px;" for="node-input-title"><i class="fa fa-tag"></i> <span data-i18n="ui_widget_thermometer.label.title"></span></label>
             <input style="width: 200px;" type="text" id="node-input-title" />
         </div>
-        <div class="form-row" id="template-row-group">
+        <div class="form-row">
+            <label style="width: 140px;" for="node-input-numColor"><i class="fa fa-info-circle"></i> <span data-i18n="ui_widget_thermometer.label.numColor"></span></label>
+            <span class="button-group">
+                <button type="button" class="red-ui-button toggle my-button-numColor" value="1">1</button><button type="button" class="red-ui-button toggle my-button-numColor" value="2">2</button><button type="button" class="red-ui-button toggle selected my-button-numColor" value="3">3</button>
+            </span>
+            <input type="hidden" id="node-input-numColor" />
+        </div>
+        <div class="form-row" id="row-colorTop">
             <label style="width: 140px;" for="node-input-colorTop"><i class="fa fa-paint-brush"></i> <span data-i18n="ui_widget_thermometer.label.topAreaColor"></span></label>
             <input style="width: 150px;" type="color" id="node-input-colorTop" />
         </div>
-        <div class="form-row" id="template-row-group">
+        <div class="form-row" id="row-colorMiddle">
             <label style="width: 140px;" for="node-input-colorMiddle"><i class="fa fa-paint-brush"></i> <span data-i18n="ui_widget_thermometer.label.middleAreaColor"></span></label>
             <input style="width: 150px;" type="color" id="node-input-colorMiddle"/>
         </div>
-        <div class="form-row" id="template-row-group">
-            <label style="width: 140px;" for="node-input-colorBottom"><i class="fa fa-paint-brush"></i> <span data-i18n="ui_widget_thermometer.label.bottomAreaColor"></span></label>
+        <div class="form-row" id="row-colorBottom">
+            <label style="width: 140px;" for="node-input-colorBottom"><i class="fa fa-paint-brush"></i> <span id="lbl-bottomColor" data-i18n="ui_widget_thermometer.label.bottomAreaColor"></span><span id="lbl-singleColor" data-i18n="ui_widget_thermometer.label.singleColor"></span></label>
             <input style="width: 150px;" type="color" id="node-input-colorBottom"/>
         </div>
-        <div class="form-row" id="template-row-group">
+        <div class="form-row">
             <label style="width: 140px;" for="node-input-minTemp"><i class="fa fa-thermometer-empty"></i> <span data-i18n="ui_widget_thermometer.label.minTemp"></span></label>
             <input style="width: 100px;" type="text" id="node-input-minTemp"/>
         </div>
-        <div class="form-row" id="template-row-group">
+        <div class="form-row">
             <label style="width: 140px;" for="node-input-maxTemp"><i class="fa fa-thermometer-full"></i> <span data-i18n="ui_widget_thermometer.label.maxTemp"></span></label>
             <input style="width: 100px;" type="text" id="node-input-maxTemp"/>
         </div>
-        <div class="form-row" id="template-row-group">
+        <div class="form-row">
             <label style="width: 140px;" for="node-input-unit"><i class="fa fa-asterisk"></i> <span data-i18n="ui_widget_thermometer.label.unit"></span></label>
             <input style="width: 60px;" type="text" id="node-input-unit"/>
         </div>
-        <div class="form-row" id="template-row-group">
+        <div class="form-row">
             <label style="width: 140px;" for="node-input-scale"><i class="fa fa-expand"></i> <span data-i18n="ui_widget_thermometer.label.scale"></span></label>
             <input style="width: 200px;" type="text" id="node-input-scale"/>
         </div>
@@ -93,6 +100,9 @@
             title: {
                 value: '',
                 required: true
+            },
+            numColor: {
+                value: 3
             },
             colorTop: {
                 value: '#2196f3'
@@ -137,10 +147,40 @@
             return this.name ? "node_label_italic" : "";
         },
         oneditprepare: function () {
+            function setDisplayColor(numColor) {
+                console.log(numColor);
+                if (numColor == "1") {
+                    $("#row-colorTop").hide();
+                    $("#row-colorMiddle").hide();
+                    $("#row-colorBottom").show();
+                    $("#lbl-singleColor").show();
+                    $("#lbl-bottomColor").hide();
+                } else if (numColor == "2") {
+                    $("#row-colorTop").show();
+                    $("#row-colorMiddle").hide();
+                    $("#row-colorBottom").show();
+                    $("#lbl-singleColor").hide();
+                    $("#lbl-bottomColor").show();
+                } else if (numColor == "3") {
+                    $("#row-colorTop").show();
+                    $("#row-colorMiddle").show();
+                    $("#row-colorBottom").show();
+                    $("#lbl-singleColor").hide();
+                    $("#lbl-bottomColor").show();
+                }
+            }
+
             $("#node-input-size").elementSizer({
                 width: "#node-input-width",
                 height: "#node-input-height",
                 group: "#node-input-group"
+            });
+            // set used color button group
+            $(".my-button-numColor").on("click", function () {
+                $(".my-button-numColor").removeClass("selected");
+                $(this).addClass("selected");
+                $("#node-input-numColor").val($(this).attr("value"));
+                setDisplayColor($(this).attr("value"));
             });
             $("#node-input-minTemp").typedInput({
                 type: "num",
@@ -182,6 +222,14 @@
                         ]
                     }
                 ]
+            });
+            // set used color clicked button follow property
+            $(".my-button-numColor").removeClass("selected");
+            $(".my-button-numColor").each(function (i, obj) {
+                if ($(obj).attr("value") === $("#node-input-numColor").val()) {
+                    $(obj).addClass("selected");
+                }
+                setDisplayColor($("#node-input-numColor").val());
             });
         }
     });

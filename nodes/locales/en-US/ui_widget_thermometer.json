@@ -6,6 +6,8 @@
             "topAreaColor": "Top Area Color",
             "middleAreaColor": "Middle Area Color",
             "bottomAreaColor": "Bottom Area Color",
+            "singleColor": "Color",
+            "numColor": "Number of colors",
             "unit": "Unit",
             "scale": "Scale",
             "minTemp": "Min. Temperature",

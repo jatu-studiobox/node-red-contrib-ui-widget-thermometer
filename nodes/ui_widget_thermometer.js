@@ -4,6 +4,7 @@ module.exports = function (RED) {
         let clsSmall = "";
         let displayName = "";
         let gapTitle = "10";
+        let styleMercuryColor = "";
         if (config.scale === 'small') {
             heightValue = '150';
             clsSmall = 'small';
@@ -11,6 +12,14 @@ module.exports = function (RED) {
         }
         if (config.title !== "") {
             displayName = "<div style='font-size: 1.2em;font-weight:bold;text-align: center;margin-top: " + gapTitle + "px'>" + config.title + "</div>";
+        }
+        let numColor = config.numColor;
+        if (numColor == "1") {
+            styleMercuryColor = "background:" + config.colorBottom + ";"
+        } else if (numColor == "2") {
+            styleMercuryColor = "background: linear-gradient(" + config.colorTop + ", " + config.colorBottom + ");";
+        } else if (numColor == "3") {
+            styleMercuryColor = "background: linear-gradient(" + config.colorTop + ", " + config.colorMiddle + ", " + config.colorBottom + ");";
         }
         const html = String.raw`<style>
 .tg-thermometer {
@@ -21,33 +30,33 @@ module.exports = function (RED) {
     margin: auto;
 }
 .tg-thermometer.small .meter {
-    width: 6px
+    width: 6px;
 }
 .tg-thermometer.small .meter .mask {
-    width: 6px
+    width: 6px;
 }
 .tg-thermometer.small .meter .bg-color {
-    height: calc(120px - 57px)
+    height: calc(120px - 57px);
 }
 .tg-thermometer.small .draw-a {
-    width: 20px
+    width: 20px;
 }
 .tg-thermometer.small .draw-a:after {
     width: 32px;
     height: 32px;
     left: -6px;
-    bottom: -10px
+    bottom: -10px;
 }
 .tg-thermometer.small .draw-b:before {
-    width: 6px
+    width: 6px;
 }
 .tg-thermometer.small .draw-b:after {
     width: 14px;
-    height: 14px
+    height: 14px;
 }
 .tg-thermometer.small .percent-b,
 .tg-thermometer.small .percent-d {
-    display: none
+    display: none;
 }
 .tg-thermometer .statistics {
     position: absolute;
@@ -58,28 +67,28 @@ module.exports = function (RED) {
     height: 100%;
     font-style: italic;
     font-weight: 500;
-    text-shadow: 1px 1px #fff
+    text-shadow: 1px 1px #fff;
 }
 .tg-thermometer .statistics .percent {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     text-align: right;
     position: absolute;
-    width: 55px
+    width: 55px;
 }
 .tg-thermometer .statistics .percent.percent-a {
-    bottom: calc(100% - 2px)
+    bottom: calc(100% - 2px);
 }
 .tg-thermometer .statistics .percent.percent-b {
-    bottom: calc(75% - 2px)
+    bottom: calc(75% - 2px);
 }
 .tg-thermometer .statistics .percent.percent-c {
-    bottom: calc(50% - 2px)
+    bottom: calc(50% - 2px);
 }
 .tg-thermometer .statistics .percent.percent-d {
-    bottom: calc(25% - 2px)
+    bottom: calc(25% - 2px);
 }
 .tg-thermometer .statistics .percent.percent-e {
-    bottom: calc(0% - 2px)
+    bottom: calc(0% - 2px);
 }
 .tg-thermometer .meter {
     width: 10px;
@@ -91,7 +100,7 @@ module.exports = function (RED) {
     position: absolute;
     background-color: #d6d6d6;
     border-radius: 10px 10px 0 0;
-    z-index: 1
+    z-index: 1;
 }
 .tg-thermometer .meter .mercury {
     position: absolute;
@@ -102,7 +111,7 @@ module.exports = function (RED) {
     border-radius: 10px 10px 0 0;
     background: linear-gradient(0deg, ` + config.colorBottom + `, #3f51b5);
     transition: all .5s ease-in-out;
-    height: 0
+    height: 0;
 }
 .tg-thermometer .meter .mask {
     position: absolute;
@@ -110,14 +119,13 @@ module.exports = function (RED) {
     overflow: hidden;
     width: 10px;
     height: 100%;
-    border-radius: 10px 10px 0 0
+    border-radius: 10px 10px 0 0;
 }
 .tg-thermometer .meter .bg-color {
     position: absolute;
     width: 10px;
-    height: calc(200px - 57px);
-    background: linear-gradient(` + config.colorTop + `, ` + config.colorMiddle + `, ` + config.colorBottom + `);
-    bottom: 0
+    height: calc(200px - 57px);` + styleMercuryColor +
+    `bottom: 0;
 }
 .tg-thermometer .meter .percent-current {
     position: absolute;
@@ -130,7 +138,7 @@ module.exports = function (RED) {
     border-radius: 2px;
     font-weight: 500;
     font-size: 1.2em;
-    color: #333
+    color: #333;
 }
 .tg-thermometer .meter .percent-current:after {
     border-left: 8px solid white;
@@ -144,7 +152,7 @@ module.exports = function (RED) {
     bottom: 0;
     margin: auto;
     width: 0;
-    height: 0
+    height: 0;
 }
 .tg-thermometer .meter .percent-current:before {
     border-left: 7px solid rgba(0, 0, 0, 0.2);
@@ -158,7 +166,7 @@ module.exports = function (RED) {
     bottom: 0;
     margin: auto;
     width: 0;
-    height: 0
+    height: 0;
 }
 .tg-thermometer .draw-a {
     background-color: #fff;
@@ -167,7 +175,7 @@ module.exports = function (RED) {
     margin: auto;
     position: relative;
     border-radius: 20px 20px 0 0;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 1px 1px 5px rgba(0, 0, 0, 0.2)
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 .tg-thermometer .draw-a:before {
     width: 100%;
@@ -177,7 +185,7 @@ module.exports = function (RED) {
     height: 50px;
     background-color: #fff;
     content: "";
-    z-index: 1
+    z-index: 1;
 }
 .tg-thermometer .draw-a:after {
     content: "";
@@ -188,7 +196,7 @@ module.exports = function (RED) {
     left: -10px;
     bottom: -20px;
     border-radius: 50%;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 1px 1px 5px rgba(0, 0, 0, 0.2)
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 .tg-thermometer .draw-b {
     position: absolute;
@@ -198,7 +206,7 @@ module.exports = function (RED) {
     right: 0;
     margin: auto;
     height: 50px;
-    z-index: 1
+    z-index: 1;
 }
 .tg-thermometer .draw-b:after {
     position: absolute;
@@ -211,7 +219,7 @@ module.exports = function (RED) {
     height: 24px;
     background-color: ` + config.colorBottom + `;
     content: "";
-    border-radius: 50%
+    border-radius: 50%;
 }
 .tg-thermometer .draw-b:before {
     position: absolute;
@@ -223,7 +231,7 @@ module.exports = function (RED) {
     height: 20px;
     background-color: ` + config.colorBottom + `;
     content: "";
-    border-radius: 10px 10px 0 0
+    border-radius: 10px 10px 0 0;
 }
 .centered {
     position: absolute !important;
@@ -236,7 +244,7 @@ module.exports = function (RED) {
     height: 300px;
     display: flex;
     justify-content: space-between;
-    align-items: center
+    align-items: center;
 }
 .error {
     color: red;
