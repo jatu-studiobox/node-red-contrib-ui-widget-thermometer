@@ -13,6 +13,7 @@
             "minTemp": "Min. Temperature",
             "maxTemp": "Max. Temperature",
             "numberOfDecimals": "Decimal(s) of Temp.",
+            "showPercentage": "Display level %",
             "title": "Title"
         },
         "errors": {

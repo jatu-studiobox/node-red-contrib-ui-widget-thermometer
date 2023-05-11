@@ -13,6 +13,7 @@
             "minTemp": "ค่าอุณหภูมิต่ำสุด",
             "maxTemp": "ค่าอุณหภูมิสูงสุด",
             "numberOfDecimals": "ทศนิยมค่าอุณหภูมิ",
+            "showPercentage": "แสดงระดับ %",
             "title": "ชื่อเรื่อง"
         },
         "errors": {

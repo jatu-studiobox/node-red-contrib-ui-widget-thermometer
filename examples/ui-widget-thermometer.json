@@ -1,6 +1,6 @@
 [
     {
-        "id": "feeb23345d93ba21",
+        "id": "2b8581eed145ec79",
         "type": "tab",
         "label": "UI Widget Thermometer Example",
         "disabled": false,
@@ -8,9 +8,9 @@
         "env": []
     },
     {
-        "id": "d5dd73172be92139",
+        "id": "750c36e0c1d897df",
         "type": "inject",
-        "z": "feeb23345d93ba21",
+        "z": "2b8581eed145ec79",
         "name": "",
         "props": [
             {
@@ -32,14 +32,14 @@
         "y": 100,
         "wires": [
             [
-                "d7c6e8d8e1722f9d"
+                "acb42c54af85eef0"
             ]
         ]
     },
     {
-        "id": "d7c6e8d8e1722f9d",
+        "id": "acb42c54af85eef0",
         "type": "function",
-        "z": "feeb23345d93ba21",
+        "z": "2b8581eed145ec79",
         "name": "Random Number",
         "func": "// var precision = 10; // 1 decimals\n// var precision = 100; // 2 decimals\nvar precision = 1000; // 3 decimals\n\n// random num 1 to 100 with decimals\nvar randomNum = Math.floor(Math.random() * (100 * precision - 1 * precision) + 1 * precision) / (1 * precision);\nmsg.payload = randomNum;\nreturn msg;",
         "outputs": 1,
@@ -51,14 +51,14 @@
         "y": 100,
         "wires": [
             [
-                "dbec0dc2278a5255"
+                "3ed64a6eeed2d46d"
             ]
         ]
     },
     {
-        "id": "dbec0dc2278a5255",
+        "id": "3ed64a6eeed2d46d",
         "type": "ui_widget_thermometer",
-        "z": "feeb23345d93ba21",
+        "z": "2b8581eed145ec79",
         "group": "fe8c8f98cc2d3635",
         "order": 0,
         "width": 0,
@@ -73,8 +73,9 @@
         "scale": "normal",
         "minTemp": 0,
         "maxTemp": 100,
-        "numberOfDecimals": "3",
-        "x": 640,
+        "numberOfDecimals": "0",
+        "showPercentage": "0",
+        "x": 620,
         "y": 100,
         "wires": []
     },

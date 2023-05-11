@@ -59,6 +59,10 @@
             <input style="width: 100px;" type="text" id="node-input-maxTemp"/>
         </div>
         <div class="form-row">
+            <label style="width: 160px;" for="node-input-numberOfDecimals"><i class="fa fa-info-circle"></i> <span data-i18n="ui_widget_thermometer.label.numberOfDecimals"></span></label>
+            <input style="width: 80px;" type="text" id="node-input-numberOfDecimals"/>
+        </div>
+        <div class="form-row">
             <label style="width: 160px;" for="node-input-unit"><i class="fa fa-asterisk"></i> <span data-i18n="ui_widget_thermometer.label.unit"></span></label>
             <input style="width: 60px;" type="text" id="node-input-unit"/>
         </div>
@@ -67,8 +71,8 @@
             <input style="width: 160px;" type="text" id="node-input-scale"/>
         </div>
         <div class="form-row">
-            <label style="width: 160px;" for="node-input-numberOfDecimals"><i class="fa fa-info-circle"></i> <span data-i18n="ui_widget_thermometer.label.numberOfDecimals"></span></label>
-            <input style="width: 80px;" type="text" id="node-input-numberOfDecimals"/>
+            <label style="width: 160px;" for="node-input-showPercentage"><i class="fa fa-info-circle"></i> <span data-i18n="ui_widget_thermometer.label.showPercentage"></span></label>
+            <input style="width: 160px;" type="text" id="node-input-showPercentage"/>
         </div>
     </div>
 </script>
@@ -140,6 +144,10 @@
                 }
             },
             numberOfDecimals: {
+                value: "0",
+                required: true
+            },
+            showPercentage: {
                 value: "0",
                 required: true
             }
@@ -240,6 +248,17 @@
                             { value: "1", label: "1" },
                             { value: "2", label: "2" },
                             { value: "3", label: "3" }
+                        ]
+                    }
+                ]
+            });
+            $("#node-input-showPercentage").typedInput({
+                types: [
+                    {
+                        value: "showPercentage",
+                        options: [
+                            { value: "0", label: "Not show" },
+                            { value: "1", label: "Show" }
                         ]
                     }
                 ]

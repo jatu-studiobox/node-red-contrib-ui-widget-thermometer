@@ -5,6 +5,7 @@ module.exports = function (RED) {
         let displayName = "";
         let gapTitle = "10";
         let styleMercuryColor = "";
+        let levelPercentage = '';
         if (config.scale === 'small') {
             heightValue = '150';
             clsSmall = 'small';
@@ -20,6 +21,9 @@ module.exports = function (RED) {
             styleMercuryColor = "background: linear-gradient(" + config.colorTop + ", " + config.colorBottom + ");";
         } else if (numColor == "3") {
             styleMercuryColor = "background: linear-gradient(" + config.colorTop + ", " + config.colorMiddle + ", " + config.colorBottom + ");";
+        }
+        if (config.showPercentage === "1") {
+            levelPercentage = '<div class="percent percent-b">75%</div><div class="percent percent-d">25%</div><div class="percent percent-c">50%</div>';
         }
         const html = String.raw`<style>
 .tg-thermometer {
@@ -259,11 +263,9 @@ module.exports = function (RED) {
             <div class="draw-b"></div>
             <div class="meter">
                 <div class="statistics">
-                    <div class="percent percent-a">` + config.maxTemp + config.unit + `</div>
-                    <div class="percent percent-b">75%</div>
-                    <div class="percent percent-d">25%</div>
-                    <div class="percent percent-c">50%</div>
-                    <div class="percent percent-e">` + config.minTemp + config.unit + `</div>
+                    <div class="percent percent-a">` + config.maxTemp + config.unit + `</div>`
+                    + levelPercentage +
+                    `<div class="percent percent-e">` + config.minTemp + config.unit + `</div>
                 </div>
                 <div style="height: 0%" class="mercury">
                     <div class="percent-current">0%</div>
