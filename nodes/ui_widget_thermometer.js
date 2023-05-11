@@ -306,10 +306,11 @@ module.exports = function (RED) {
             if (typeof msg.payload !== 'number') {
                 result.isError = true;
                 result.message = RED._("ui_widget_thermometer.errors.payloadInvalid");
-            } else if (!Number.isInteger(msg.payload)) {
-                result.isError = true;
-                result.message = RED._("ui_widget_thermometer.errors.payloadInvalid");
             }
+            // } else if (!Number.isInteger(msg.payload)) {
+            //     result.isError = true;
+            //     result.message = RED._("ui_widget_thermometer.errors.payloadInvalid");
+            // }
         } else {
             result.isError = true;
             result.message = RED._("ui_widget_thermometer.errors.payloadRequired");
@@ -318,9 +319,9 @@ module.exports = function (RED) {
     }
     // Function calculate mercury height percent
     function calculatePercentDisplay(msg, config) {
-        const current = msg.payload;
+        const current = (Math.round(msg.payload * 100) / 100).toFixed(parseInt(config.numberOfDecimals));
         if (current >= config.minTemp && current <= config.maxTemp) {
-            const percent = ((current - config.minTemp)/(config.maxTemp - config.minTemp)) * 100;
+            const percent = (((current - config.minTemp) / (config.maxTemp - config.minTemp)) * 100).toFixed(parseInt(config.numberOfDecimals));
             return percent;
         } else if (current < config.minTemp) {
             return 0;
@@ -379,6 +380,8 @@ module.exports = function (RED) {
                         }
                         // Bind 'unit' to msg
                         msg.unit = config.unit;
+                        // Bind 'Number of decimals'
+                        msg.numberOfDecimals = config.numberOfDecimals;
                         return {
                             msg: msg
                         };
@@ -407,7 +410,8 @@ module.exports = function (RED) {
                             } else {
                                 const mercury = $(thermoWidget).find(".mercury");
                                 $(mercury).css("height", msg.percent.toString() + "%");
-                                $(mercury).children(".percent-current").text(payload.toString() + msg.unit);
+                                const tempDisplay = (Math.round(payload * 100) / 100).toFixed(parseInt(msg.numberOfDecimals));
+                                $(mercury).children(".percent-current").text(tempDisplay.toString() + msg.unit);
                             }
                         });
                     }

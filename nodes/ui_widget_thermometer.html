@@ -66,6 +66,10 @@
             <label style="width: 140px;" for="node-input-scale"><i class="fa fa-expand"></i> <span data-i18n="ui_widget_thermometer.label.scale"></span></label>
             <input style="width: 200px;" type="text" id="node-input-scale"/>
         </div>
+        <div class="form-row">
+            <label style="width: 140px;" for="node-input-numberOfDecimals"><i class="fa fa-ellipsis-h"></i> <span data-i18n="ui_widget_thermometer.label.numberOfDecimals"></span></label>
+            <input style="width: 200px;" type="text" id="node-input-numberOfDecimals"/>
+        </div>
     </div>
 </script>
 
@@ -134,6 +138,10 @@
                     let min = parseInt($("#node-input-minTemp").val());
                     return v > min;
                 }
+            },
+            numberOfDecimals: {
+                value: "0",
+                required: true
             }
         },
         inputs: 1,
@@ -219,6 +227,19 @@
                         options: [
                             { value: "normal", label: "Normal" },
                             { value: "small", label: "Small" }
+                        ]
+                    }
+                ]
+            });
+            $("#node-input-numberOfDecimals").typedInput({
+                types: [
+                    {
+                        value: "numberOfDecimals",
+                        options: [
+                            { value: "0", label: "0" },
+                            { value: "1", label: "1" },
+                            { value: "2", label: "2" },
+                            { value: "3", label: "3" }
                         ]
                     }
                 ]

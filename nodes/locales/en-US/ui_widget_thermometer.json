@@ -12,6 +12,7 @@
             "scale": "Scale",
             "minTemp": "Min. Temperature",
             "maxTemp": "Max. Temperature",
+            "numberOfDecimals": "Number of decimals of Temp",
             "title": "Title"
         },
         "errors": {
