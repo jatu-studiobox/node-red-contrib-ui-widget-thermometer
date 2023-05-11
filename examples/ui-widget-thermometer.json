@@ -1,6 +1,6 @@
 [
     {
-        "id": "7c46b75af3c0f917",
+        "id": "feeb23345d93ba21",
         "type": "tab",
         "label": "UI Widget Thermometer Example",
         "disabled": false,
@@ -8,9 +8,9 @@
         "env": []
     },
     {
-        "id": "c90c8a4caacd57f9",
+        "id": "d5dd73172be92139",
         "type": "inject",
-        "z": "7c46b75af3c0f917",
+        "z": "feeb23345d93ba21",
         "name": "",
         "props": [
             {
@@ -32,47 +32,49 @@
         "y": 100,
         "wires": [
             [
-                "c0c9739ba6783ce8"
+                "d7c6e8d8e1722f9d"
             ]
         ]
     },
     {
-        "id": "c0c9739ba6783ce8",
+        "id": "d7c6e8d8e1722f9d",
         "type": "function",
-        "z": "7c46b75af3c0f917",
-        "name": "",
-        "func": "msg.payload = Math.floor(Math.random() * 100);\nreturn msg;",
+        "z": "feeb23345d93ba21",
+        "name": "Random Number",
+        "func": "// var precision = 10; // 1 decimals\n// var precision = 100; // 2 decimals\nvar precision = 1000; // 3 decimals\n\n// random num 1 to 100 with decimals\nvar randomNum = Math.floor(Math.random() * (100 * precision - 1 * precision) + 1 * precision) / (1 * precision);\nmsg.payload = randomNum;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 400,
+        "x": 410,
         "y": 100,
         "wires": [
             [
-                "bc02819ffec4beac"
+                "dbec0dc2278a5255"
             ]
         ]
     },
     {
-        "id": "bc02819ffec4beac",
+        "id": "dbec0dc2278a5255",
         "type": "ui_widget_thermometer",
-        "z": "7c46b75af3c0f917",
+        "z": "feeb23345d93ba21",
         "group": "fe8c8f98cc2d3635",
-        "order": 2,
+        "order": 0,
         "width": 0,
         "height": 0,
         "name": "Kitchen",
-        "title": "Kitchen Temperature",
+        "title": "Kitchen",
+        "numColor": 3,
         "colorTop": "#2196f3",
         "colorMiddle": "#8bc34a",
         "colorBottom": "#f44336",
         "unit": "°C",
-        "scale": "small",
+        "scale": "normal",
         "minTemp": 0,
         "maxTemp": 100,
-        "x": 600,
+        "numberOfDecimals": "3",
+        "x": 640,
         "y": 100,
         "wires": []
     },
