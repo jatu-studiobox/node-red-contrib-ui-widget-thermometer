@@ -74,6 +74,7 @@
             <label style="width: 160px;" for="node-input-showPercentage"><i class="fa fa-info-circle"></i> <span data-i18n="ui_widget_thermometer.label.showPercentage"></span></label>
             <input style="width: 160px;" type="text" id="node-input-showPercentage"/>
         </div>
+        <input type="hidden" id="node-input-minTempMoreThanMaxTemp" />
     </div>
 </script>
 
@@ -131,16 +132,37 @@
                 value: 0,
                 required: true,
                 validate: function (v) {
-                    let max = parseInt($("#node-input-maxTemp").val());
-                    return max > v;
+                    var regexp = /^-?\d+(\.\d+)?$/;
+                    return regexp.test(v);
+                    // if (regexp.test(v)) {
+                    //     if ($("#node-input-maxTemp").val()) {
+                    //         return parseFloat(v) <= parseFloat($("#node-input-maxTemp").val());
+                    //     }
+                    //     return true;
+                    // }
+                    // return false;
                 }
             },
             maxTemp: {
                 value: 100,
                 required: true,
                 validate: function (v) {
-                    let min = parseInt($("#node-input-minTemp").val());
-                    return v > min;
+                    var regexp = /^-?\d+(\.\d+)?$/;
+                    return regexp.test(v);
+                    // if (regexp.test(v)) {
+                    //     if ($("#node-input-mimTemp").val()) {
+                    //         return parseFloat($("#node-input-mimTemp").val()) <= parseFloat(v);
+                    //     }
+                    //     return true;
+                    // }
+                    // return false;
+                }
+            },
+            minTempMoreThanMaxTemp: {
+                value: "1",
+                required: true,
+                validate: function (v) {
+                    return v === "1";
                 }
             },
             numberOfDecimals: {
@@ -164,7 +186,6 @@
         },
         oneditprepare: function () {
             function setDisplayColor(numColor) {
-                console.log(numColor);
                 if (numColor == "1") {
                     $("#row-colorTop").hide();
                     $("#row-colorMiddle").hide();
@@ -271,6 +292,22 @@
                 }
                 setDisplayColor($("#node-input-numColor").val());
             });
+        },
+        oneditsave: function () {
+            var regexp = /^-?\d+(\.\d+)?$/;
+            const minTemp = $("#node-input-minTemp").typedInput('value');
+            const maxTemp = $("#node-input-maxTemp").typedInput('value');
+            if (regexp.test(minTemp) && regexp.test(maxTemp)) {
+                // convert to correct value
+                const minTempFormat = parseFloat($("#node-input-minTemp").typedInput('value'));
+                $("#node-input-minTemp").typedInput('value', minTempFormat);
+                const maxTempFormat = parseFloat($("#node-input-maxTemp").typedInput('value'));
+                $("#node-input-maxTemp").typedInput('value', maxTempFormat);
+                // check
+                const invalid = minTempFormat > maxTempFormat ? "0" : "1";
+                // set valid
+                $("#node-input-minTempMoreThanMaxTemp").val(invalid);
+            }
         }
     });
 </script>

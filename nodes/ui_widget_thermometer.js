@@ -322,12 +322,12 @@ module.exports = function (RED) {
     // Function calculate mercury height percent
     function calculatePercentDisplay(msg, config) {
         const current = (Math.round(msg.payload * 100) / 100).toFixed(parseInt(config.numberOfDecimals));
-        if (current >= config.minTemp && current <= config.maxTemp) {
+        if (parseFloat(current) >= parseFloat(config.minTemp) && parseFloat(current) <= parseFloat(config.maxTemp)) {
             const percent = (((current - config.minTemp) / (config.maxTemp - config.minTemp)) * 100).toFixed(parseInt(config.numberOfDecimals));
             return percent;
-        } else if (current < config.minTemp) {
+        } else if (parseFloat(current) < parseFloat(config.minTemp)) {
             return 0;
-        } else if (current > config.maxTemp) {
+        } else if (parseFloat(current) > parseFloat(config.maxTemp)) {
             return 100;
         }
     }
