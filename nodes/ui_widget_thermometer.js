@@ -1,5 +1,6 @@
 module.exports = function (RED) {
     function HTML(config) {
+        let configAsJson = JSON.stringify(config);
         let heightValue = "250";
         let clsSmall = "";
         let displayName = "";
@@ -254,9 +255,10 @@ module.exports = function (RED) {
     color: red;
     width: 100%;
     text-align: center;
+    display: none;
 }
 </style>
-<div id="item_{{$id}}">
+<div id="thermo_item_{{$id}}">
     <div>
         <div style="height: ` + heightValue + `px;" class="tg-thermometer ` + clsSmall + `">
             <div class="draw-a"></div>
@@ -276,6 +278,7 @@ module.exports = function (RED) {
             </div>
         </div>
     </div>` + displayName + `<div class="error">error</div>
+    <input type='hidden' ng-init='init(` + configAsJson + `)'>
 </div>`;
         return html;
     }
@@ -394,26 +397,67 @@ module.exports = function (RED) {
                         }
                     },
                     initController: function ($scope) {
+                        let divWidget;
+                        // Add scope variables for switching tab
+                        $scope.inited = false;
+                        $scope.temperature = 0;
+                        $scope.percent = 0;
+                        $scope.unit = "";
+                        $scope.numberOfDecimals = 0;
                         $scope.flag = true;     // not sure if this is needed?
+
+                        const setMercury = function (divBase, temperature, percent, unit, numberOfDecimals, isErr, errMessage) {
+                            // Gathering widget
+                            const thermoWidget = document.getElementById("thermo_item_" + $scope.$eval('$id'));
+                            // Hide error section
+                            const error = $(thermoWidget).find(".error");
+                            $(error).hide();
+                            
+                            // Validate error
+                            if (isErr) {
+                                // set display error section
+                                $(error).show();
+                                $(error).text("Error: " + errMessage);
+                                return;
+                            } else {
+                                // set mercury section
+                                const mercury = $(thermoWidget).find(".mercury");
+                                $(mercury).css("height", percent.toString() + "%");
+                                const tempDisplay = (Math.round(temperature * 100) / 100).toFixed(parseInt(numberOfDecimals));
+                                $(mercury).children(".percent-current").text(tempDisplay.toString() + unit);
+                            }
+                        };
+                        // init widget
+                        $scope.init = function (config) {
+                            $scope.config = config;
+                            divWidget = '#thermo_item_' + $scope.$eval('$id');
+                            let stateCheck = setInterval(function () {
+                                if (document.querySelector(divWidget) && $scope.temperature) {
+                                    clearInterval(stateCheck);
+                                    $scope.inited = true;
+                                    setMercury(divWidget, $scope.temperature, $scope.percent, $scope.unit, $scope.numberOfDecimals, false, "");
+                                    $scope.temperature = 0;
+                                    $scope.percent = 0;
+                                    $scope.unit = "";
+                                    $scope.numberOfDecimals = 0;
+                                }
+                            }, 40);
+                        };
                         $scope.$watch('msg', function (msg) {
                             if (!msg) {
                                 // Ignore undefined msg
                                 return;
                             }
-                            // Gathering payload
-                            const payload = msg.payload;
-                            const thermoWidget = document.getElementById("item_" + $scope.$eval('$id'));
-                            const error = $(thermoWidget).find(".error");
-                            $(error).hide();
-                            // Validate payload
-                            if (msg.isErr) {
-                                $(error).show();
-                                $(error).text("Error: " + msg.errMessage);
-                            } else {
-                                const mercury = $(thermoWidget).find(".mercury");
-                                $(mercury).css("height", msg.percent.toString() + "%");
-                                const tempDisplay = (Math.round(payload * 100) / 100).toFixed(parseInt(msg.numberOfDecimals));
-                                $(mercury).children(".percent-current").text(tempDisplay.toString() + msg.unit);
+                            if (msg && msg.hasOwnProperty("payload") && typeof msg.payload === 'number') {
+                                if ($scope.inited == false) {
+                                    // Gathering payload
+                                    $scope.temperature = parseFloat(msg.payload);
+                                    $scope.percent = parseFloat(msg.percent);
+                                    $scope.unit = msg.unit;
+                                    $scope.numberOfDecimals = parseFloat(msg.numberOfDecimals);
+                                    return;
+                                }
+                                setMercury(divWidget, msg.payload, msg.percent, msg.unit, msg.numberOfDecimals, msg.isErr, msg.errMessage);
                             }
                         });
                     }
