@@ -406,22 +406,22 @@ module.exports = function (RED) {
                         $scope.numberOfDecimals = 0;
                         $scope.flag = true;     // not sure if this is needed?
 
-                        const setMercury = function (divBase, temperature, percent, unit, numberOfDecimals, isErr, errMessage) {
-                            // Gathering widget
-                            const thermoWidget = document.getElementById("thermo_item_" + $scope.$eval('$id'));
+                        const setMercury = function (thermoWidget, temperature, percent, unit, numberOfDecimals, isErr, errMessage) {
                             // Hide error section
                             const error = $(thermoWidget).find(".error");
                             $(error).hide();
-                            
+                            // Gathering mercury
+                            const mercury = $(thermoWidget).find(".mercury");
                             // Validate error
                             if (isErr) {
                                 // set display error section
                                 $(error).show();
                                 $(error).text("Error: " + errMessage);
-                                return;
+                                // set mercury section
+                                $(mercury).css("height", "0%");
+                                $(mercury).children(".percent-current").text("-" + unit);
                             } else {
                                 // set mercury section
-                                const mercury = $(thermoWidget).find(".mercury");
                                 $(mercury).css("height", percent.toString() + "%");
                                 const tempDisplay = (Math.round(temperature * 100) / 100).toFixed(parseInt(numberOfDecimals));
                                 $(mercury).children(".percent-current").text(tempDisplay.toString() + unit);
