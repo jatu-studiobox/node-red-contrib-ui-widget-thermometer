@@ -4,6 +4,8 @@
     <dl class="message-properties">
         <dt>Title<span class="property-type">string</span></dt>
         <dd>Thermometer's title</dd>
+        <dt>Number of colors<span class="property-type">integer</span></dt>
+        <dd>Choose number of color(s) for display on mercury, 1-3 color(s)</dd>
         <dt>Top Area Color<span class="property-type">rgb color</span></dt>
         <dd>Thermometer's mercury color at top area</dd>
         <dt>Middle Area Color<span class="property-type">rgb color</span></dt>
@@ -14,14 +16,18 @@
         <dd>Mininum temperature of thermometer for display - default 0</dd>
         <dt>Max. Temperature<span class="property-type">integer</span></dt>
         <dd>Maxinum temperature of thermometer for display - default 100</dd>
+        <dt>Decimal(s) of Temp.<span class="property-type">integer</span></dt>
+        <dd>Use temperature value with decimal(s) for display, 0-3 decimal(s)</dd>
         <dt>Unit<span class="property-type">°C|°F</span></dt>
         <dd>Unit for display</dd>
         <dt>Scale<span class="property-type">normal|small</span></dt>
         <dd>Thermometer size for display, includes 'normal' and 'small'</dd>
+        <dt>Display level %<span class="property-type">string</span></dt>
+        <dd>Set display level percentage (Hide/Show)</dd>
     </dl>
     <h3>Inputs</h3>
     <dl class="message-properties">
-        <dt>payload<span class="property-type">integer</span></dt>
+        <dt>payload<span class="property-type">number</span></dt>
         <dd>The temperature value to display</dd>
     </dl>
     <h3>More details</h3>
