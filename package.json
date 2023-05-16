@@ -12,7 +12,7 @@
     "url": "https://github.com/jatu-studiobox/node-red-contrib-ui-widget-thermometer.git"
   },
   "engines": {
-    "node": "^12.0.0 || ^14.19.0 || >=16.0.0"
+    "node": ">=12.0.0"
   },
   "keywords": [
     "node-red",
