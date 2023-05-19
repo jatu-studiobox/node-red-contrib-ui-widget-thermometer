@@ -1,4 +1,4 @@
-name: LINE Notify Issues Opened
+name: LINE Notify example
 on:
   issues:
     types: opened
@@ -6,11 +6,10 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - uses: snow-actions/line-notify@v1.1.0
+      - uses: jatu-studiobox/github-actions-line-notify@v1.0
         with:
-          access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
-          message: |
-            Issue is opened.
-            📦 ${{ github.event.repository.name }}
-            #${{ github.event.issue.number }} : ${{ github.event.issue.title }}
-            ${{ github.event.issue.html_url }}
+          access_token: ${{ secrets.LINE_NOTIFY_ACCESS_TOKEN }}
+          repository_name: ${{ github.event.repository.name }}
+          issue_number: ${{ github.event.issue.number }}
+          issue_title: ${{ github.event.issue.title }}
+          issue_html_url: ${{ github.event.issue.html_url }}
