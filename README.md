@@ -33,3 +33,7 @@ node-red
 
 ## Change Logs
 [See change logs detail](https://github.com/jatu-studiobox/node-red-contrib-ui-widget-thermometer/wiki/Change-Logs)
+
+## You can support me
+
+<a href="https://www.buymeacoffee.com/innostudioj" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
