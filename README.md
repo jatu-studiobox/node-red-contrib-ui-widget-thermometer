@@ -36,4 +36,4 @@ node-red
 
 ## You can support me
 
-<a href="https://www.buymeacoffee.com/innostudioj" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px;width: 217px;"></a>
+<a href="https://www.buymeacoffee.com/innostudioj" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px;width: 217px;" width="217" height="60"></a>
