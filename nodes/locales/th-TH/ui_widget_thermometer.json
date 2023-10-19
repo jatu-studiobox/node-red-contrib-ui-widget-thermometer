@@ -14,7 +14,8 @@
             "maxTemp": "ค่าอุณหภูมิสูงสุด",
             "numberOfDecimals": "ทศนิยมค่าอุณหภูมิ",
             "showPercentage": "แสดงระดับ %",
-            "title": "ชื่อเรื่อง"
+            "title": "ชื่อเรื่อง",
+            "currentTempFontSize": "ขนาดของอุณหภูมิปัจจุบัน"
         },
         "errors": {
             "no-group": "โปรดใส่ group สำหรับ widget",

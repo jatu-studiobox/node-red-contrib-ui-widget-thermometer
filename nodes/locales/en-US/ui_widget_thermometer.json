@@ -14,7 +14,8 @@
             "maxTemp": "Max. Temperature",
             "numberOfDecimals": "Decimal(s) of Temp.",
             "showPercentage": "Display level %",
-            "title": "Title"
+            "title": "Title",
+            "currentTempFontSize": "Current Temp. Size"
         },
         "errors": {
             "no-group": "Please enter group for widget",

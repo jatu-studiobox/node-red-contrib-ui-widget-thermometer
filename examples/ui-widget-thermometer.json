@@ -75,6 +75,7 @@
         "maxTemp": 100,
         "numberOfDecimals": "0",
         "showPercentage": "0",
+        "currentTempFontSize": "1.2",
         "x": 620,
         "y": 100,
         "wires": []

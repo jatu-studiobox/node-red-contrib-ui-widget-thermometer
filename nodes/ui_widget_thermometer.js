@@ -26,6 +26,7 @@ module.exports = function (RED) {
         if (config.showPercentage === "1") {
             levelPercentage = '<div class="percent percent-b">75%</div><div class="percent percent-d">25%</div><div class="percent percent-c">50%</div>';
         }
+        const currentTempFontSize = config.currentTempFontSize || "1.2";
         const html = String.raw`<style>
 .tg-thermometer {
     font-family: "Roboto", sans-serif;
@@ -142,7 +143,7 @@ module.exports = function (RED) {
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 3px 3px 6px rgba(0, 0, 0, 0.1);
     border-radius: 2px;
     font-weight: 500;
-    font-size: 1.2em;
+    font-size: ` + currentTempFontSize + `em;
     color: #333;
 }
 .tg-thermometer .meter .percent-current:after {
@@ -387,6 +388,8 @@ module.exports = function (RED) {
                         msg.unit = config.unit;
                         // Bind 'Number of decimals'
                         msg.numberOfDecimals = config.numberOfDecimals;
+                        // Bind 'Current temp. font size'
+                        msg.currentTempFontSize = config.currentTempFontSize;
                         return {
                             msg: msg
                         };
